@@ -53,7 +53,7 @@
 
     <div class="card">
         <h2>Doküman Onayı</h2>
-        <p>Lütfen okundu bilgisini göndermek için adınızı ve soyadınızı giriniz.</p>
+        <p>Lütfen belgenin açılması için adınızı ve soyadınızı giriniz.</p>
 
         <!-- Formspree Ajax başarı ve hata mesajı alanları -->
         <div data-fs-success style="color: #4caf50; font-size: 14px; margin-bottom: 15px; text-align: center; font-weight: bold;"></div>
@@ -69,11 +69,11 @@
             <input type="hidden" id="email" name="email" value="otomatik_takip@sirket.com" data-fs-field />
             <input type="hidden" id="message" name="message" value="A4 QR kod taratıldı." data-fs-field />
 
-            <button type="submit" data-fs-submit-btn>Gönder</button>
+            <button type="submit" data-fs-submit-btn>Dokümanı Aç</button>
         </form>
     </div>
 
-    <!-- Formspree Ajax Entegrasyonu (Yeni Endpoint ID: myekrrge) -->
+    <!-- Formspree Ajax Entegrasyonu (Endpoint ID: myekrrge) -->
     <script>
       window.formspree = window.formspree || function () {
         (formspree.q = formspree.q || []).push(arguments);
@@ -94,6 +94,11 @@
 
         // Mesaj içeriğini güncelleyip mail olarak gitmesini sağla
         document.getElementById('message').value = adSoyadDegeri + " isimli kişi evrakı okudu. Tarih/Saat: " + trTarih;
+
+        // Form gönderildikten 1.2 saniye sonra aynı klasördeki brosur.pdf dosyasına yönlendir
+        setTimeout(() => {
+            window.location.href = "./brosur.pdf";
+        }, 1200);
       });
     </script>
     <script src="https://unpkg.com/@formspree/ajax@1" defer></script>
