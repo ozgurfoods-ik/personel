@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doküman Onayı</title>
+    <style>
+        body {
+            background-color: #121212;
+            color: #e0e0e0;
+            font-family: sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .card {
+            background: #1e1e1e;
+            padding: 30px;
+            border-radius: 8px;
+            width: 100%;
+            max-width: 400px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+        }
+        h2 { margin-top: 0; color: #ffffff; text-align: center; }
+        p { font-size: 14px; color: #b0b0b0; text-align: center; margin-bottom: 20px; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; font-size: 13px; }
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            background: #2a2a2a;
+            border: 1px solid #444;
+            color: #fff;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        button {
+            width: 100%;
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 4px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        button:hover { background: #0056b3; }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <h2>Doküman Onayı</h2>
+        <p>Lütfen okundu bilgisini göndermek için adınızı ve soyadınızı giriniz.</p>
+
+        <!-- Formspree başarı mesajı alanı -->
+        <div data-fs-success style="color: #4caf50; font-size: 14px; margin-bottom: 15px; text-align: center; font-weight: bold;"></div>
+        <div data-fs-error style="color: #f44336; font-size: 14px; margin-bottom: 15px; text-align: center;"></div>
+
+        <form id="my-form">
+            <div class="form-group">
+                <label for="isim">Ad Soyad:</label>
+                <input type="text" id="isim" name="Ad_Soyad" required data-fs-field placeholder="Adınız Soyadınız" />
+                <span data-fs-error="Ad_Soyad" style="color: #f44336; font-size: 12px;"></span>
+            </div>
+
+            <input type="hidden" id="email" name="email" value="otomatik_takip@sirket.com" data-fs-field />
+            <input type="hidden" id="message" name="message" value="A4 QR kod taratıldı." data-fs-field />
+
+            <button type="submit" data-fs-submit-btn>Gönder</button>
+        </form>
+    </div>
+
+    <!-- Formspree Ajax Entegrasyonu -->
+    <script>
+      window.formspree = window.formspree || function () {
+        (formspree.q = formspree.q || []).push(arguments);
+      };
+      
+      formspree("initForm", {
+        formElement: "#my-form",
+        formId: "moejgzob",
+      });
+
+      const formElement = document.getElementById('my-form');
+      
+      formElement.addEventListener('submit', function(e) {
+        // Türkiye saati ile tarih ve saat oluştur
+        const options = { timeZone: 'Europe/Istanbul', dateStyle: 'short', timeStyle: 'medium' };
+        const trTarih = new Date().toLocaleString('tr-TR', options);
+        const adSoyadDegeri = document.getElementById('isim').value;
+
+        // Mesaj içeriğini güncelleyip mail olarak gitmesini sağla
+        document.getElementById('message').value = adSoyadDegeri + " isimli kişi evrakı okudu. Tarih/Saat: " + trTarih;
+        
+        // Yönlendirme kodu tamamen kaldırıldı. Kullanıcı form gönderdikten sonra aynı sayfada kalır.
+      });
+    </script>
+    <script src="https://unpkg.com/@formspree/ajax@1" defer></script>
+</body>
+</html>
