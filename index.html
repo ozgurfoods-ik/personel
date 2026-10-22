@@ -55,7 +55,7 @@
         <h2>Doküman Onayı</h2>
         <p>Lütfen okundu bilgisini göndermek için adınızı ve soyadınızı giriniz.</p>
 
-        <!-- Formspree başarı mesajı alanı -->
+        <!-- Formspree Ajax başarı ve hata alanları -->
         <div data-fs-success style="color: #4caf50; font-size: 14px; margin-bottom: 15px; text-align: center; font-weight: bold;"></div>
         <div data-fs-error style="color: #f44336; font-size: 14px; margin-bottom: 15px; text-align: center;"></div>
 
@@ -73,15 +73,15 @@
         </form>
     </div>
 
-    <!-- Formspree Ajax Entegrasyonu -->
+    <!-- Formspree Ajax Entegrasyonu (Yeni Endpoint ID ile) -->
     <script>
       window.formspree = window.formspree || function () {
         (formspree.q = formspree.q || []).push(arguments);
       };
       
-      formspree("initForm", {
-        formElement: "#my-form",
-        formId: "moejgzob",
+      formspree('initForm', { 
+        formElement: '#my-form', 
+        formId: 'xwlvgdwj' 
       });
 
       const formElement = document.getElementById('my-form');
@@ -94,8 +94,6 @@
 
         // Mesaj içeriğini güncelleyip mail olarak gitmesini sağla
         document.getElementById('message').value = adSoyadDegeri + " isimli kişi evrakı okudu. Tarih/Saat: " + trTarih;
-        
-        // Yönlendirme kodu tamamen kaldırıldı. Kullanıcı form gönderdikten sonra aynı sayfada kalır.
       });
     </script>
     <script src="https://unpkg.com/@formspree/ajax@1" defer></script>
